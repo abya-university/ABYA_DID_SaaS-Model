@@ -112,7 +112,7 @@ const WalletConnection = () => {
             <button
                 ref={toggleRef}
                 onClick={() => setDropdownVisible((v) => !v)}
-                className="flex items-center space-x-2 bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-600"
+                className="flex items-center space-x-2 bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600"
                 aria-haspopup="menu"
                 aria-expanded={dropdownVisible}
             >
@@ -130,9 +130,9 @@ const WalletConnection = () => {
                     className="absolute right-0 mt-2 w-72 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden"
                 >
                     <div className="bg-yellow-500/10 p-4 flex items-center space-x-3 border-b dark:border-gray-700">
-                        <Wallet2Icon className="w-10 h-10 text-yellow-600 dark:text-yellow-400" />
+                        <Wallet2Icon className="w-10 h-10 text-purple-600" />
                         <div>
-                            <h3 className="font-bold text-lg text-gray-800 dark:text-white">
+                            <h3 className="font-bold text-lg text-white">
                                 Wallet Details
                             </h3>
                             {/* <p className="text-xs text-gray-600 dark:text-gray-300 truncate max-w-[200px]">{address}</p> */}

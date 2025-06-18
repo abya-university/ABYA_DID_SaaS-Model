@@ -5,10 +5,17 @@ import { useState } from "react";
 import { useProfile } from "../contexts/ProfileContext";
 import ProfileConnection from "../components/ProfileConnection";
 import { Shield, Lock, UserCheck, Key, Database } from "lucide-react";
+import ConnectProfile from "./ConnectProfile";
 
 const Homepage = () => {
     const [showCreateProfileModal, setShowCreateProfileModal] = useState(false);
+    const [showConnectProfileModal, setShowConnectProfileModal] = useState(false);
     const { profile } = useProfile();
+
+    const handleProfileConnected = (did, profileData) => {
+        // Handle the profile connection
+        setShowConnectProfileModal(false);
+    };
 
     return (
         <>
@@ -19,8 +26,17 @@ const Homepage = () => {
 
                     {/* Connection Banner */}
                     {profile.did === null && (
-                        <div className="mb-12 p-4 bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-xl backdrop-blur-sm border border-purple-700/30 shadow-xl animate-pulse">
-                            <ProfileConnection />
+                        <div className="mb-12 p-4 bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-xl backdrop-blur-sm border border-purple-700/30 shadow-xl animate-pulse flex justify-between items-center">
+                            <div className="text-white">
+                                <span className="font-medium">Get started with ABYA DID</span>
+                                <p className="text-sm text-gray-300">Connect your profile to access all features</p>
+                            </div>
+                            <button
+                                onClick={() => setShowConnectProfileModal(true)}
+                                className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium rounded-lg transition shadow-md hover:shadow-lg py"
+                            >
+                                Connect Profile
+                            </button>
                         </div>
                     )}
 
@@ -153,6 +169,23 @@ const Homepage = () => {
                 </footer>
             </div>
 
+            {/* Modal for profile connection - rendered at the root level */}
+            {showConnectProfileModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+                    <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-[500px] max-h-[90vh] overflow-y-auto">
+                        <ConnectProfile
+                            onClose={() => setShowConnectProfileModal(false)}
+                            onProfileConnected={handleProfileConnected}
+                        />
+                        <button
+                            onClick={() => setShowConnectProfileModal(false)}
+                            className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {showCreateProfileModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
