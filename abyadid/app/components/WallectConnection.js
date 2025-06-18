@@ -15,11 +15,11 @@ import {
     Wallet,
     Aperture,
 } from "lucide-react";
-// import { createDidFromSigner } from "../services/didService";
-// import { registerDidOnIpfs } from "../services/ipfsService";
+import { createDidFromSigner } from "../services/didService";
+import { registerDidOnIpfs } from "../services/ipfsService";
 import { useEthersSigner } from "./useClientSigner";
-// import { useDid } from "../contexts/DidContext";
-// import { useProfile } from "../contexts/ProfileContext";
+import { useDid } from "../contexts/DidContext";
+import { useProfile } from "../contexts/ProfileContext";
 
 const WalletConnection = () => {
     const { isConnected, address } = useAccount();
@@ -28,41 +28,41 @@ const WalletConnection = () => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
     const [isDidCopied, setIsDidCopied] = useState(false);
-    //   const { ethrDid, setEthrDid } = useDid();
+    const { ethrDid, setEthrDid } = useDid();
     const dropdownRef = useRef(null);
     const toggleRef = useRef(null);
     // const { data: balanceData } = useBalance({ address });
     const signerPromise = useEthersSigner();
-    //   const { clearProfile, profile } = useProfile();
+    const { clearProfile, profile } = useProfile();
 
     // Fetch DID on connect
-    //   useEffect(() => {
-    //     if (!isConnected) {
-    //       setEthrDid("");
-    //       return;
-    //     }
-    //     let mounted = true;
-    //     (async () => {
-    //       try {
-    //         const signer = await signerPromise;
-    //         console.log("Signer:", signer);
-    //         const registry = import.meta.env.VITE_APP_DID_REGISTRY_CONTRACT_ADDRESS;
-    //         const did = await createDidFromSigner(
-    //           signer,
-    //           registry,
-    //           "skaleTitanTestnet"
-    //         );
-    //         if (!mounted) return;
-    //         setEthrDid(did);
-    //         await registerDidOnIpfs(did);
-    //       } catch (err) {
-    //         console.error("Error in DID creation or IPFS registration:", err);
-    //       }
-    //     })();
-    //     return () => {
-    //       mounted = false;
-    //     };
-    //   }, [isConnected, signerPromise, setEthrDid]);
+    useEffect(() => {
+        if (!isConnected) {
+            setEthrDid("");
+            return;
+        }
+        let mounted = true;
+        (async () => {
+            try {
+                const signer = await signerPromise;
+                console.log("Signer:", signer);
+                const registry = process.env.NEXT_PUBLIC_DID_REGISTRY_CONTRACT_ADDRESS;
+                const did = await createDidFromSigner(
+                    signer,
+                    registry,
+                    "skaleTitanTestnet"
+                );
+                if (!mounted) return;
+                setEthrDid(did);
+                await registerDidOnIpfs(did);
+            } catch (err) {
+                console.error("Error in DID creation or IPFS registration:", err);
+            }
+        })();
+        return () => {
+            mounted = false;
+        };
+    }, [isConnected, signerPromise, setEthrDid]);
 
     // Outside click / ESC
     useEffect(() => {
@@ -98,10 +98,10 @@ const WalletConnection = () => {
     const signOut = () => {
         disconnect();
         setDropdownVisible(false);
-        // if (profile.did !== null) {
-        // If profile is connected, clear it
-        //   clearProfile();
-        // }
+        if (profile.did !== null) {
+            // If profile is connected, clear it
+            clearProfile();
+        }
         // navigate("/");
     };
 
@@ -172,7 +172,7 @@ const WalletConnection = () => {
                         </div>
 
                         {/* Copy DID */}
-                        {/* {ethrDid && (
+                        {ethrDid && (
                             <div className="flex justify-between dark:text-gray-300">
                                 <button
                                     onClick={() => copyText(ethrDid, setIsDidCopied)}
@@ -189,7 +189,7 @@ const WalletConnection = () => {
                                     {ethrDid.replace(/^(.{12}).*(.{8})$/, "$1…$2")}
                                 </span>
                             </div>
-                        )} */}
+                        )}
 
                         {/* Ether Balance */}
                         {/* <div className="flex justify-between dark:text-gray-300">

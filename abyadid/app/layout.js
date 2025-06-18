@@ -1,5 +1,7 @@
 "use client";
 
+import { DidProvider } from "./contexts/DidContext";
+import { ProfileProvider } from "./contexts/ProfileContext";
 import "./globals.css";
 import Providers from "./providers/provider";
 import { BrowserRouter } from "react-router-dom";
@@ -9,7 +11,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <BrowserRouter>
         <Providers>
-          {children}
+          <ProfileProvider>
+            <DidProvider>
+              {children}
+            </DidProvider>
+          </ProfileProvider>
         </Providers>
       </BrowserRouter>
     </html>
