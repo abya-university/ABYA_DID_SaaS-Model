@@ -6,6 +6,7 @@ import { useProfile } from "../contexts/ProfileContext";
 import ProfileConnection from "../components/ProfileConnection";
 import { Shield, Lock, UserCheck, Key, Database } from "lucide-react";
 import ConnectProfile from "./ConnectProfile";
+import DidProfileForm from "../components/ProfileForm";
 
 const Homepage = () => {
     const [showCreateProfileModal, setShowCreateProfileModal] = useState(false);
@@ -49,12 +50,21 @@ const Homepage = () => {
                         </p>
                         <button
                             onClick={() => setShowCreateProfileModal(true)}
-                            className="relative group px-8 py-3 bg-gradient-to-r from-violet-600 to-blue-600 rounded-lg hover:from-violet-700 hover:to-blue-700 transition-all duration-300 shadow-lg"
+                            disabled={profile.did !== null}
+                            className={`relative group px-8 py-3 bg-gradient-to-r ${profile.did !== null
+                                ? "from-gray-500 to-gray-600 cursor-not-allowed opacity-60"
+                                : "from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700 shadow-lg"
+                                } rounded-lg transition-all duration-300`}
                         >
-                            <span className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-200"></span>
+                            <span className={`absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur ${profile.did !== null
+                                ? "opacity-0"
+                                : "opacity-30 group-hover:opacity-100 transition duration-200"
+                                }`}></span>
                             <span className="relative flex items-center justify-center space-x-2">
                                 <UserCheck size={20} />
-                                <span className="font-semibold">Create Your DID Profile</span>
+                                <span className="font-semibold">
+                                    {profile.did !== null ? "Profile Connected" : "Create Your DID Profile"}
+                                </span>
                             </span>
                         </button>
                     </div>
@@ -191,7 +201,7 @@ const Homepage = () => {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-96">
                         <h2 className="text-xl font-bold mb-4 text-white">Update Profile</h2>
-                        <UpdateProfileForm state={setShowCreateProfileModal} />
+                        <DidProfileForm setShowCreateProfileModal={setShowCreateProfileModal} />
                         <button
                             onClick={() => setShowCreateProfileModal(false)}
                             className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
