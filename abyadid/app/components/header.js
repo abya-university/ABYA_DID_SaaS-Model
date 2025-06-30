@@ -29,8 +29,8 @@ const Header = () => {
         <div className="fixed w-full z-50 top-0 left-0">
             <header
                 className={`${scrolled
-                        ? "bg-gray-900/90 backdrop-blur-lg shadow-lg"
-                        : "bg-transparent"
+                    ? "bg-gray-900/90 backdrop-blur-lg shadow-lg"
+                    : "bg-transparent"
                     } transition-all duration-300 px-4 py-3`}
             >
                 <nav className="max-w-7xl mx-auto flex items-center justify-between">
@@ -55,6 +55,11 @@ const Header = () => {
                             <li>
                                 <Link href="/about" className="px-4 py-2 rounded-lg hover:bg-gray-800/50 transition-colors text-gray-300 hover:text-white">
                                     About
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/admin" className="px-4 py-2 rounded-lg hover:bg-gray-800/50 transition-colors text-gray-300 hover:text-white">
+                                    Admin
                                 </Link>
                             </li>
                             <li>

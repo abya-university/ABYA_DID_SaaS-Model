@@ -70,6 +70,19 @@ const Homepage = () => {
                     </div>
                 </section>
 
+                <a
+                    href="https://bolt.new/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fixed bottom-4 right-4 z-50 hover:scale-110 transition-transform duration-200"
+                >
+                    <img
+                        src="/bolt_badge.png"
+                        className="w-16 h-16 drop-shadow-lg"
+                        alt="Bolt Badge"
+                    />
+                </a>
+
                 {/* Features Section */}
                 <section className="py-16 px-4">
                     <div className="max-w-7xl mx-auto">
