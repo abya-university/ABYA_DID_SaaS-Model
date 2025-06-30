@@ -11,8 +11,11 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.8",
     "@tanstack/react-query": "^5.80.7",
+    "did-resolver": "^4.1.0",
     "dotenv": "^16.5.0",
     "ethers": "^6.14.4",
+    "ethr-did": "^3.0.38",
+    "ethr-did-resolver": "^11.0.4",
     "lucide-react": "^0.516.0",
     "next": "14.1.0",
     "pinata-web3": "^0.5.4",
