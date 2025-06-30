@@ -1,3 +1,5 @@
+"use client";
+
 // ipfsService.js
 
 import { PinataSDK } from "pinata-web3";

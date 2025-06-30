@@ -1,4 +1,4 @@
-// didService.js
+"use client";
 
 import { ethers } from "ethers";
 import { EthrDID } from "ethr-did";
