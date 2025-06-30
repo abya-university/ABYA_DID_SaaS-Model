@@ -1,17 +1,13 @@
 "use client";
 
-import { Routes, Route } from "react-router-dom";
-import Header from "./components/header";
-import Homepage from "./pages/Home";
+import dynamic from 'next/dynamic';
+
+// Dynamically import components that use browser APIs with ssr disabled
+const ClientApp = dynamic(
+  () => import('./components/ClientApp'),
+  { ssr: false }
+);
 
 export default function Home() {
-  return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-      </Routes>
-
-    </>
-  );
+  return <ClientApp />;
 }
